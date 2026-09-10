@@ -1,0 +1,260 @@
+.story {
+  position: relative;
+  height: 120svh;
+  background: #f7f5ee;
+  color: #003820;
+  overflow: clip;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: min(85svh, 600px);
+  min-height: 480px;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 32px 48px;
+}
+
+.halo {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(55vw, 650px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e6efe3 0%, #f0f3e8 50%, transparent 72%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Left Column: Content (shifted right from screen margin) */
+.copy {
+  position: relative;
+  z-index: 10;
+  width: 40%;
+  max-width: 500px;
+  flex-shrink: 0;
+  text-align: left;
+  padding-left: clamp(36px, 5vw, 84px);
+  margin-left: clamp(16px, 2.5vw, 48px);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: #00a651;
+}
+
+.heading {
+  margin-top: 12px;
+  font-size: 2.625rem;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #003820;
+  font-weight: 800;
+}
+
+.headingSecondLine {
+  font: inherit;
+}
+
+.description {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #526357;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #00a651, #00803d);
+  color: white;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  box-shadow: 0 10px 15px -3px rgba(6, 78, 59, 0.4);
+  transition: transform 300ms, box-shadow 300ms, filter 300ms;
+}
+
+.link:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.link:active {
+  transform: scale(0.95);
+}
+
+/* Right Column: Scroll-Driven Oversized Product Lineup Stage */
+.lineupStage {
+  position: relative;
+  z-index: 5;
+  width: 58%;
+  height: min(400px, 44vh);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.lineupTrack {
+  display: flex;
+  align-items: flex-end;
+  gap: max(-22px, -1.6vw);
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+  padding-left: 20px;
+}
+
+.productCard {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(140px, 15vw, 210px);
+  transform-origin: bottom center;
+  filter: drop-shadow(0 20px 24px rgba(0, 56, 32, 0.2));
+}
+
+.productImg {
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.caption {
+  position: absolute;
+  bottom: 24px;
+  left: clamp(68px, 9vw, 160px);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #71806b;
+}
+
+@media (max-width: 900px) {
+  .story {
+    height: auto;
+    min-height: 0;
+  }
+
+  .stage {
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 0;
+    padding: 40px 20px 24px;
+    gap: 12px;
+  }
+
+  .copy {
+    width: 100%;
+    max-width: none;
+    padding-left: 0;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .eyebrow {
+    text-align: center;
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .headingSecondLine {
+    display: block;
+  }
+
+  .description {
+    font-size: 15px;
+    margin-top: 20px;
+    padding-inline: 16px;
+    line-height: 1.75;
+  }
+
+  .link {
+    padding: 12px 14px;
+    gap: 8px;
+    font-size: 11px;
+    min-height: 44px;
+  }
+
+  .link svg {
+    flex-shrink: 0;
+  }
+
+  .lineupStage {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    height: clamp(150px, 28vw, 230px);
+  }
+
+  .productCard {
+    width: clamp(100px, 18vw, 155px);
+  }
+
+  .lineupTrack {
+    gap: 0;
+    padding-left: 0;
+  }
+
+  .caption {
+    position: static;
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 640px) {
+  .heading {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 3.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+
+  .link:hover,
+  .link:active {
+    transform: none;
+  }
+
+  .story {
+    height: auto;
+  }
+
+  .stage {
+    position: relative;
+  }
+
+  .lineupTrack {
+    transform: none !important;
+  }
+}
