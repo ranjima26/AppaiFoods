@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FiChevronRight, FiMinus, FiPlus, FiCoffee, FiPackage } from "react-icons/fi";
+import { FiChevronRight, FiMinus, FiPlus, FiCoffee, FiPackage, FiStar } from "react-icons/fi";
 import { products, type Product } from "@/app/data/products";
 
 import AddToCart from "./addToCart";
@@ -52,7 +52,10 @@ export default function PageOverview({ product }: { product: Product }) {
           <div>
             <h1 className="text-5xl leading-[1.05] sm:text-6xl">{product.name}</h1>
             <p className="mt-4 text-base font-semibold text-[#008846] sm:text-lg">{product.subtitle}</p>
-            <p className="mt-6 text-sm text-[#69766d]">No reviews yet</p>
+            <div aria-label="Rated 4.2 out of 5" className="mt-6 inline-flex items-center gap-1 rounded-full bg-[#207553] px-2.5 py-0.5 text-sm font-medium leading-5 text-white">
+              <FiStar aria-hidden="true" className="size-3.5 fill-current" />
+              <span aria-hidden="true">4.2</span>
+            </div>
             <div className="mt-7 flex flex-wrap items-center gap-4">
               <span className="text-4xl font-bold">₹{product.price}</span>
               <del className="text-lg font-semibold text-gray-400">₹{product.originalPrice}</del>

@@ -13,12 +13,12 @@ import {
 } from "react-icons/fi";
 
 const shopLinks = [
-  { label: "Banana Chips", href: "/shop?category=banana-chips" },
-  { label: "Tapioca Chips & Sticks", href: "/shop?category=tapioca-chips" },
-  { label: "Achappam & Kuzhalappam", href: "/shop?category=achappam" },
-  { label: "Chammanthi Podi", href: "/shop?category=chammanthi-podi" },
-  { label: "Avalose Unda & Sweets", href: "/shop?category=avalose-unda" },
-  { label: "Best Sellers & Combos", href: "/shop?category=combos" },
+  { label: "Banana Chips", href: "/shop/banana-chips" },
+  { label: "Tapioca Chips & Sticks", href: "/shop/tapioca-chips" },
+  { label: "Achappam & Kuzhalappam", href: "/shop/achappam" },
+  { label: "Chammanthi Podi", href: "/shop/chammanthi-podi" },
+  { label: "Avalose Unda & Sweets", href: "/shop/avalose-unda" },
+  { label: "More", href: "/shop" },
 ];
 
 const supportLinks = [
@@ -32,7 +32,6 @@ const supportLinks = [
 
 const aboutLinks = [
   { label: "Our Story", href: "/aboutUs" },
-  { label: "Quality Assurance", href: "/#quality" },
   { label: "Journal & Blog", href: "/aboutUs" },
   { label: "Gift Packs", href: "/shop?category=gift-packs" },
   { label: "Contact Us", href: "/contactUs" },

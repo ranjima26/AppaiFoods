@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { FiArrowRight, FiEye, FiEyeOff, FiX } from "react-icons/fi";
@@ -52,7 +51,6 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           <div className="mb-5 grid grid-cols-2 gap-1 rounded-xl bg-[#f2f5eb] p-1">
             {(["login", "signup"] as const).map((item) => <button key={item} type="button" aria-pressed={mode === item} onClick={() => { setMode(item); setMessage(""); setShowPassword(false); }} className={`rounded-lg py-2.5 text-sm font-semibold transition-colors ${mode === item ? "bg-[#003820] text-white shadow-sm" : "text-[#69766d] hover:text-[#003820]"}`}>{item === "login" ? "Login" : "Sign up"}</button>)}
           </div>
-          <Link href="/profile" onClick={onClose} className="mb-5 flex items-center justify-center gap-2 rounded-xl border border-[#008846]/20 bg-[#f2f5eb] px-4 py-3 text-sm font-semibold text-[#008846]">View my profile<FiArrowRight aria-hidden="true" /></Link>
           <form key={mode} onSubmit={submit} className="space-y-4">
             {isSignup && <label className="block text-xs font-semibold" htmlFor="auth-name">Name<input id="auth-name" name="name" autoComplete="name" required placeholder="Your full name" className={inputClass} /></label>}
             <label className="block text-xs font-semibold" htmlFor="auth-identity">{isSignup ? "Email" : "Email or phone number"}<input id="auth-identity" name="identity" type={isSignup ? "email" : "text"} autoComplete={isSignup ? "email" : "username"} required placeholder={isSignup ? "you@example.com" : "Enter email or phone number"} className={inputClass} /></label>
