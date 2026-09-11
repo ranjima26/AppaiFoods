@@ -35,11 +35,24 @@ export default function Wishlist() {
               <li key={product.slug} className="group flex flex-col">
                 <div className={`relative overflow-hidden rounded-2xl ${index % 3 === 0 ? "bg-[#f0efdf]" : index % 3 === 1 ? "bg-[#eaf0e6]" : "bg-[#f4eae0]"}`}>
                   <Link href={`/shop/${product.slug}`} className="relative block h-52 sm:h-56 lg:h-60"><Image src={`/assets/${product.image}`} alt={`${product.name} packet`} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 44vw, 400px" className="object-contain p-5 transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none sm:p-6" /></Link>
-                  <button type="button" onClick={() => { removeItem(product.slug); setMessage(`${product.name} removed from your wishlist.`); }} aria-label={`Remove ${product.name} from wishlist`} title="Remove from wishlist" className="absolute right-3 top-3 grid size-11 place-items-center text-red-500 transition-colors hover:text-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008846]"><FiHeart aria-hidden="true" className="size-6 fill-current" /></button>
                 </div>
                 <div className="flex flex-1 flex-col px-1 pt-3">
-                  <div className="flex items-start justify-between gap-3"><div><h3 className="text-base leading-tight sm:text-lg"><Link href={`/shop/${product.slug}`} className="hover:text-[#008846]">{product.name}</Link></h3><p className="mt-1 text-xs leading-5 text-[#607167]">{product.subtitle}</p></div><div className="shrink-0 pt-1 text-right"><p className="text-base font-bold">{formatPrice(product.price)}</p><del className="mt-1 block text-xs text-[#8a978f]">{formatPrice(product.originalPrice)}</del></div></div>
-                  <div className="mt-auto pt-3 [&_button]:h-11 [&_button]:text-[10px] [&_button]:tracking-normal [&_button_svg]:size-4"><AddToCart slug={product.slug} name={product.name} /></div>
+                  <div className="flex items-start justify-between gap-3"><div><h3 className="text-base leading-tight sm:text-lg"><Link href={`/shop/${product.slug}`} className="hover:text-[#008846]">{product.name}</Link></h3><p className="mt-1 text-xs leading-5 text-[#526357]">{product.subtitle}</p></div><div className="shrink-0 pt-1 text-right"><p className="text-base font-bold">{formatPrice(product.price)}</p><del className="mt-1 block text-xs text-[#6f7d74]">{formatPrice(product.originalPrice)}</del></div></div>
+                  <div className="mt-auto grid grid-cols-2 gap-2 pt-3 [&>div]:min-w-0 [&_button]:h-10 [&_button]:px-2 [&_button]:!text-[10px] [&_button]:!leading-tight [&_button]:tracking-normal [&_button_svg]:size-4 sm:[&_button]:!text-[11px]">
+                    <AddToCart slug={product.slug} name={product.name} />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        removeItem(product.slug);
+                        setMessage(`${product.name} removed from your wishlist.`);
+                      }}
+                      aria-label={`Remove ${product.name} from wishlist`}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-500 font-bold uppercase text-white transition-colors hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+                    >
+                      <FiHeart aria-hidden="true" className="fill-current" />
+                      Remove from wishlist
+                    </button>
+                  </div>
                 </div>
               </li>
             ))}

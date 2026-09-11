@@ -96,26 +96,44 @@ function PreLoaderContent() {
       <div className="absolute size-96 rounded-full bg-white/10 blur-3xl" />
 
       {/* Logo with a white glow following its silhouette */}
-      <div className="relative z-10 flex flex-col items-center gap-3">
-        <div className="relative flex h-32 items-center justify-center sm:h-40">
+      <div className="relative z-10 flex items-center justify-center">
+        <div className="relative grid size-60 place-items-center sm:size-72">
+          <svg
+            viewBox="0 0 240 240"
+            aria-hidden="true"
+            className="preloader-orbit-counter-clockwise absolute inset-0 size-full overflow-visible fill-white/90"
+          >
+            <defs>
+              <path id="preloader-outer-text-path" d="M 120,18 A 102,102 0 1,1 119.9,18" />
+            </defs>
+            <text className="text-[11px] font-bold uppercase tracking-[0.24em] drop-shadow-sm">
+              <textPath href="#preloader-outer-text-path" startOffset="0%" textLength="560" lengthAdjust="spacing">
+                100% Authentic Kerala Snacks •
+              </textPath>
+            </text>
+          </svg>
+          <svg
+            viewBox="0 0 240 240"
+            aria-hidden="true"
+            className="preloader-orbit-clockwise absolute inset-5 size-[calc(100%-2.5rem)] overflow-visible fill-white/75 sm:inset-6 sm:size-[calc(100%-3rem)]"
+          >
+            <defs>
+              <path id="preloader-inner-text-path" d="M 120,18 A 102,102 0 1,1 119.9,18" />
+            </defs>
+            <text className="text-[10px] font-semibold uppercase tracking-[0.2em] drop-shadow-sm">
+              <textPath href="#preloader-inner-text-path" startOffset="0%" textLength="560" lengthAdjust="spacing">
+                100% Authentic Kerala Snacks •
+              </textPath>
+            </text>
+          </svg>
           <Image
             src="/Appai Foods logo.png"
-            alt="Appai Foods Loading..."
+            alt="Appai Foods"
             width={1794}
             height={2429}
             priority
             className="preloader-pulse-glow h-28 w-auto object-contain sm:h-36"
           />
-        </div>
-
-        {/* Loading Progress Bar & Subtitle */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="h-1.5 w-52 overflow-hidden rounded-full bg-black/20 shadow-inner">
-            <div className="h-full w-full bg-white animate-pulse rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-          </div>
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/90 drop-shadow">
-            100% Authentic Kerala Snacks
-          </span>
         </div>
       </div>
     </div>

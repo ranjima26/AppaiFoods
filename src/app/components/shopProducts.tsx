@@ -62,7 +62,7 @@ export default function ShopProducts() {
                       className={`pointer-events-none object-contain ${imagePadding} opacity-0 drop-shadow-[0_12px_12px_rgba(0,56,32,0.12)] transition-opacity duration-300 group-hover/product-image:opacity-100 motion-reduce:transition-none ${isBackImageVisible ? "opacity-100" : ""}`}
                     />
                   )}
-                  <WishlistButton slug={product.slug} name={product.name} className="absolute right-3 top-3 z-20 sm:right-4 sm:top-4" />
+                  <WishlistButton slug={product.slug} name={product.name} className="absolute -right-1 top-1 z-20 sm:right-4 sm:top-4" />
                   <Link href={`/shop/${product.slug}`} aria-label={`View ${product.name}`} className="absolute inset-0 z-10 hidden sm:block" />
                   {product.backImage && (
                     <button type="button" aria-label={`Show ${isBackImageVisible ? "front" : "back"} of ${product.name}`} aria-pressed={isBackImageVisible} onClick={() => toggleMobileProductImage(product.slug)} className="absolute inset-0 z-10 sm:hidden" />
