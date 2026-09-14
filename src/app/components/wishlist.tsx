@@ -47,7 +47,7 @@ export default function Wishlist() {
                         setMessage(`${product.name} removed from your wishlist.`);
                       }}
                       aria-label={`Remove ${product.name} from wishlist`}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-500 font-bold uppercase text-white transition-colors hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+                      className="flex w-full items-center justify-center gap-2 rounded-full bg-red-500 font-bold uppercase text-white transition-colors hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
                     >
                       <FiHeart aria-hidden="true" className="fill-current" />
                       Remove from wishlist

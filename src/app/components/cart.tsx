@@ -42,7 +42,7 @@ export default function Cart() {
                 <h2 className="text-3xl">Order summary</h2>
                 <dl className="mt-7 space-y-5 text-sm" aria-live="polite"><div className="flex justify-between gap-4"><dt className="text-[#607167]">Subtotal</dt><dd className="font-bold">{formatPrice(subtotal)}</dd></div><div className="flex justify-between gap-4"><dt className="text-[#607167]">Delivery</dt><dd className="font-bold">{delivery === 0 ? "Free" : formatPrice(delivery)}</dd></div><div className="flex justify-between gap-4 border-t border-[#003820]/10 pt-5 text-xl font-bold"><dt>Order total</dt><dd>{formatPrice(subtotal + delivery)}</dd></div></dl>
                 <p className="mt-4 text-xs leading-5 text-[#607167]">Free delivery on orders above Rs 499.</p>
-                <Link href="/checkout" className="mt-7 flex min-h-14 items-center justify-center gap-3 rounded-xl bg-[#008846] px-5 font-bold text-white transition-colors hover:bg-[#003820]">Checkout<FiArrowRight aria-hidden="true" /></Link>
+                <Link href="/checkout" className="mt-7 flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#008846] px-5 font-bold text-white transition-colors hover:bg-[#003820]">Checkout<FiArrowRight aria-hidden="true" /></Link>
                 <Link href="/shop" className="mt-5 block text-center text-sm font-semibold text-[#607167]">Continue shopping</Link>
               </aside>
             </div>

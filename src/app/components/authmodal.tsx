@@ -48,8 +48,8 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           <p className="mt-2 text-xs leading-5 text-[#69766d]">{isSignup ? "Create an account for your favourite Kerala snacks." : "Log in to your Appai Foods account."}</p>
         </div>
         <div className="px-6 pb-7 pt-5 sm:px-8">
-          <div className="mb-5 grid grid-cols-2 gap-1 rounded-xl bg-[#f2f5eb] p-1">
-            {(["login", "signup"] as const).map((item) => <button key={item} type="button" aria-pressed={mode === item} onClick={() => { setMode(item); setMessage(""); setShowPassword(false); }} className={`rounded-lg py-2.5 text-sm font-semibold transition-colors ${mode === item ? "bg-[#003820] text-white shadow-sm" : "text-[#69766d] hover:text-[#003820]"}`}>{item === "login" ? "Login" : "Sign up"}</button>)}
+          <div className="mb-5 grid grid-cols-2 gap-1 rounded-full bg-[#f2f5eb] p-1">
+            {(["login", "signup"] as const).map((item) => <button key={item} type="button" aria-pressed={mode === item} onClick={() => { setMode(item); setMessage(""); setShowPassword(false); }} className={`rounded-full py-2.5 text-sm font-semibold transition-colors ${mode === item ? "bg-[#003820] text-white shadow-sm" : "text-[#69766d] hover:text-[#003820]"}`}>{item === "login" ? "Login" : "Sign up"}</button>)}
           </div>
           <form key={mode} onSubmit={submit} className="space-y-4">
             {isSignup && <label className="block text-xs font-semibold" htmlFor="auth-name">Name<input id="auth-name" name="name" autoComplete="name" required placeholder="Your full name" className={inputClass} /></label>}
@@ -64,7 +64,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
             </div>
             {isSignup && <label className="block text-xs font-semibold" htmlFor="auth-confirm">Confirm password<input id="auth-confirm" name="confirmPassword" type={showPassword ? "text" : "password"} autoComplete="new-password" required minLength={8} placeholder="Re-enter your password" className={inputClass} /></label>}
             {message && <p role="status" className="rounded-xl bg-[#f2f5eb] p-3 text-xs leading-5 text-[#003820]">{message}</p>}
-            <button type="submit" className="flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-[#008846] text-sm font-bold text-white transition-colors hover:bg-[#003820] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00a651]">{isSignup ? "Sign up" : "Login"}<FiArrowRight aria-hidden="true" /></button>
+            <button type="submit" className="flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[#008846] text-sm font-bold text-white transition-colors hover:bg-[#003820] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00a651]">{isSignup ? "Sign up" : "Login"}<FiArrowRight aria-hidden="true" /></button>
           </form>
           <p className="mt-5 text-center text-xs text-[#69766d]">{isSignup ? "Already have an account?" : "New to Appai Foods?"} <button type="button" onClick={() => { setMode(isSignup ? "login" : "signup"); setMessage(""); setShowPassword(false); }} className="font-semibold text-[#008846] underline underline-offset-4">{isSignup ? "Login" : "Sign up"}</button></p>
         </div>

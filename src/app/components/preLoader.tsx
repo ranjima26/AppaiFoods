@@ -1,139 +1,85 @@
 "use client";
 
-import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+
+const loaderDuration = 1800;
+const fadeDuration = 200;
 
 function PreLoaderContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const removeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [progress, setProgress] = useState(0);
+  const progressTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const removeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearTimers = useCallback(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    if (removeTimerRef.current) clearTimeout(removeTimerRef.current);
-    timerRef.current = null;
-    removeTimerRef.current = null;
+    if (progressTimer.current) clearInterval(progressTimer.current);
+    if (removeTimer.current) clearTimeout(removeTimer.current);
+    progressTimer.current = null;
+    removeTimer.current = null;
   }, []);
 
-  const startPreloader = useCallback((holdTime = 800) => {
+  const startPreloader = useCallback(() => {
     clearTimers();
-
     setLoading(true);
     setFadeOut(false);
+    setProgress(0);
+    const startedAt = performance.now();
 
-    timerRef.current = setTimeout(() => {
-      setFadeOut(true);
-      removeTimerRef.current = setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    }, holdTime);
+    progressTimer.current = setInterval(() => {
+      const nextProgress = Math.min(100, Math.round(((performance.now() - startedAt) / loaderDuration) * 100));
+      setProgress(nextProgress);
+      if (nextProgress === 100) {
+        if (progressTimer.current) clearInterval(progressTimer.current);
+        progressTimer.current = null;
+        setFadeOut(true);
+        removeTimer.current = setTimeout(() => setLoading(false), fadeDuration);
+      }
+    }, 16);
   }, [clearTimers]);
 
-  // Re-scheduling on every effect setup keeps this safe when React replays
-  // effects in development mode.
   useEffect(() => {
-    const startTimer = setTimeout(() => startPreloader(1000), 0);
+    const startTimer = setTimeout(startPreloader, 0);
     return () => clearTimeout(startTimer);
   }, [pathname, searchParams, startPreloader]);
 
-  // Intercept internal link clicks for immediate preloader feedback on click
   useEffect(() => {
-    const handleLinkClick = (e: MouseEvent) => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
-        return;
-      }
-
-      const target = (e.target as HTMLElement).closest("a");
-      if (!target) return;
-
-      const href = target.getAttribute("href");
-      if (!href) return;
-
-      if (
-        href.startsWith("http") ||
-        href.startsWith("//") ||
-        href.startsWith("mailto:") ||
-        href.startsWith("tel:") ||
-        target.hasAttribute("download") ||
-        target.target === "_blank"
-      ) {
-        return;
-      }
-
+    const handleLinkClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = (event.target as HTMLElement).closest("a");
+      const href = target?.getAttribute("href");
+      if (!target || !href || href.startsWith("http") || href.startsWith("//") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("#") || target.hasAttribute("download") || target.target === "_blank") return;
       const destination = new URL(href, window.location.href);
       const currentUrl = window.location.pathname + window.location.search;
-      const destinationUrl = destination.pathname + destination.search;
-
-      if (destination.origin === window.location.origin && destinationUrl !== currentUrl && !href.startsWith("#")) {
-        startPreloader(800);
-      }
+      if (destination.origin === window.location.origin && destination.pathname + destination.search !== currentUrl) startPreloader();
     };
-
     document.addEventListener("click", handleLinkClick, { capture: true });
-    return () => {
-      document.removeEventListener("click", handleLinkClick, { capture: true });
-    };
+    return () => document.removeEventListener("click", handleLinkClick, { capture: true });
   }, [startPreloader]);
 
-  // Cleanup timers on unmount
-  useEffect(() => {
-    return clearTimers;
-  }, [clearTimers]);
+  useEffect(() => clearTimers, [clearTimers]);
 
   if (!loading) return null;
 
   return (
-    <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#00a651] transition-opacity duration-500 ${
-        fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
-      }`}
-    >
-      {/* Decorative ambient background blur light */}
-      <div className="absolute size-96 rounded-full bg-white/10 blur-3xl" />
-
-      {/* Logo with a white glow following its silhouette */}
-      <div className="relative z-10 flex items-center justify-center">
-        <div className="relative grid size-60 place-items-center sm:size-72">
-          <svg
-            viewBox="0 0 240 240"
-            aria-hidden="true"
-            className="preloader-orbit-counter-clockwise absolute inset-0 size-full overflow-visible fill-white/90"
-          >
-            <defs>
-              <path id="preloader-outer-text-path" d="M 120,18 A 102,102 0 1,1 119.9,18" />
-            </defs>
-            <text className="text-[11px] font-bold uppercase tracking-[0.24em] drop-shadow-sm">
-              <textPath href="#preloader-outer-text-path" startOffset="0%" textLength="560" lengthAdjust="spacing">
-                100% Authentic Kerala Snacks •
-              </textPath>
-            </text>
-          </svg>
-          <svg
-            viewBox="0 0 240 240"
-            aria-hidden="true"
-            className="preloader-orbit-clockwise absolute inset-5 size-[calc(100%-2.5rem)] overflow-visible fill-white/75 sm:inset-6 sm:size-[calc(100%-3rem)]"
-          >
-            <defs>
-              <path id="preloader-inner-text-path" d="M 120,18 A 102,102 0 1,1 119.9,18" />
-            </defs>
-            <text className="text-[10px] font-semibold uppercase tracking-[0.2em] drop-shadow-sm">
-              <textPath href="#preloader-inner-text-path" startOffset="0%" textLength="560" lengthAdjust="spacing">
-                100% Authentic Kerala Snacks •
-              </textPath>
-            </text>
-          </svg>
-          <Image
-            src="/Appai Foods logo.png"
-            alt="Appai Foods"
-            width={1794}
-            height={2429}
-            priority
-            className="preloader-pulse-glow h-28 w-auto object-contain sm:h-36"
-          />
+    <div className={`fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#003820] text-[#f4f0df] transition-opacity ease-out ${fadeOut ? "pointer-events-none opacity-0" : "opacity-100"}`} style={{ transitionDuration: `${fadeDuration}ms` }}>
+      <div className="flex w-full max-w-3xl flex-col items-center px-6">
+        <div aria-label="Appai" className="flex overflow-hidden text-[clamp(4rem,16vw,10rem)] font-black leading-none tracking-[-0.08em]">
+          {[..."APPAI"].map((letter, index) => (
+            <span key={`${letter}-${index}`} aria-hidden="true" className="preloader-letter inline-block" style={{ animationDelay: `${index * 120}ms` }}>{letter}</span>
+          ))}
+        </div>
+        <div className="mt-14 w-full max-w-sm sm:mt-20">
+          <div className="mb-3 flex items-end justify-between text-xs font-bold uppercase tracking-[0.24em] sm:text-sm">
+            <span>Loading</span>
+            <output aria-live="polite" aria-label={`Loading ${progress} percent`} className="text-lg tracking-normal sm:text-xl">{progress}%</output>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full border border-[#f4f0df]/30 bg-black/20 sm:h-2.5">
+            <div className="h-full rounded-full bg-[#00a651] transition-[width] duration-75 ease-linear" style={{ width: `${progress}%` }} />
+          </div>
         </div>
       </div>
     </div>
@@ -141,9 +87,5 @@ function PreLoaderContent() {
 }
 
 export default function PreLoader() {
-  return (
-    <Suspense fallback={null}>
-      <PreLoaderContent />
-    </Suspense>
-  );
+  return <Suspense fallback={null}><PreLoaderContent /></Suspense>;
 }
