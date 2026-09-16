@@ -66,6 +66,17 @@ export function useCart() {
       if (!Number.isInteger(quantity)) return;
       save(parseCart(getSnapshot()).map((entry) => entry.slug === slug ? { ...entry, quantity: Math.min(99, Math.max(1, quantity)) } : entry));
     },
+    moveToCart(slug: string) {
+      if (!products.some((product) => product.slug === slug)) return;
+      const entries = parseCart(getSnapshot());
+      const existing = entries.find((entry) => entry.slug === slug);
+      if (existing) {
+        existing.quantity = 1;
+      } else {
+        entries.push({ slug, quantity: 1 });
+      }
+      save(entries);
+    },
     removeItem(slug: string) { save(parseCart(getSnapshot()).filter((entry) => entry.slug !== slug)); },
   };
 }

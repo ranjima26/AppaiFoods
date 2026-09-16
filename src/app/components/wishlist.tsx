@@ -5,11 +5,11 @@ import Link from "next/link";
 import { FiArrowLeft, FiArrowRight, FiHeart, FiShoppingBag } from "react-icons/fi";
 import { useState } from "react";
 import { useWishlist } from "./wishlistStore";
-import { formatPrice } from "./cartStore";
-import AddToCart from "./addToCart";
+import { useCart, formatPrice } from "./cartStore";
 
 export default function Wishlist() {
   const { items, count, removeItem } = useWishlist();
+  const { moveToCart } = useCart();
   const [message, setMessage] = useState("");
 
   return (
@@ -38,8 +38,20 @@ export default function Wishlist() {
                 </div>
                 <div className="flex flex-1 flex-col px-1 pt-3">
                   <div className="flex items-start justify-between gap-3"><div><h3 className="text-base leading-tight sm:text-lg"><Link href={`/shop/${product.slug}`} className="hover:text-[#008846]">{product.name}</Link></h3><p className="mt-1 text-xs leading-5 text-[#526357]">{product.subtitle}</p></div><div className="shrink-0 pt-1 text-right"><p className="text-base font-bold">{formatPrice(product.price)}</p><del className="mt-1 block text-xs text-[#6f7d74]">{formatPrice(product.originalPrice)}</del></div></div>
-                  <div className="mt-auto grid grid-cols-2 gap-2 pt-3 [&>div]:min-w-0 [&_button]:h-10 [&_button]:px-2 [&_button]:!text-[10px] [&_button]:!leading-tight [&_button]:tracking-normal [&_button_svg]:size-4 sm:[&_button]:!text-[11px]">
-                    <AddToCart slug={product.slug} name={product.name} />
+                  <div className="mt-auto grid grid-cols-2 gap-2 pt-3 [&_button]:h-10 [&_button]:px-2 [&_button]:!text-[10px] [&_button]:!leading-tight [&_button]:tracking-normal [&_button_svg]:size-4 sm:[&_button]:!text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        moveToCart(product.slug);
+                        removeItem(product.slug);
+                        setMessage(`${product.name} moved to your cart.`);
+                      }}
+                      aria-label={`Add ${product.name} to cart`}
+                      className="flex w-full items-center justify-center gap-2 rounded-full bg-[#008846] font-bold uppercase text-white transition-colors hover:bg-[#003820] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008846]"
+                    >
+                      <FiShoppingBag aria-hidden="true" />
+                      Add to cart
+                    </button>
                     <button
                       type="button"
                       onClick={() => {

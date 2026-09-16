@@ -115,6 +115,7 @@ export const products: Product[] = [
     "slug": "poopola",
     "image": "poopola.png",
     "backImage": "poopola back.png",
+    "bowlImage": "/poopola-bowl.png",
     "name": "Poopola",
     "subtitle": "A Kerala favourite",
     "description": "A Kerala favourite for your snack collection. Serve with tea and enjoy with family or friends.",

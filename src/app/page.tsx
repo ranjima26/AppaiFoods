@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import FlightProducts from "@/app/components/flightProducts";
 import Hero from "@/app/components/hero";
 import ProductSection from "@/app/components/productSection";
 import WhyAppai from "@/app/components/whyAppai";
@@ -21,14 +22,9 @@ export default function Home() {
 
   return (
     <main className="isolate min-h-screen bg-white">
-      <div className="relative">
-        <div className="sticky top-0 z-0">
-          <Hero />
-        </div>
-        <div className="relative z-10 overflow-hidden rounded-t-[2rem] shadow-[0_-18px_45px_rgba(0,0,0,0.14)] sm:rounded-t-[2.75rem]">
-          <OurStory />
-        </div>
-      </div>
+      <FlightProducts />
+      <Hero />
+      <OurStory />
       <ProductSection />
       <WhyAppai />
       <SisterConcerns />

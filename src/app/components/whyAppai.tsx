@@ -237,6 +237,22 @@ export default function WhyAppai() {
               </div>
             </div>
           </div>
+
+          {/* Row 5: Left Pill -> Right Text */}
+          <div className="grid grid-cols-1 items-center gap-4 sm:gap-8 md:grid-cols-2">
+            <div className="flex justify-center md:justify-end">
+              <div className="min-w-[260px] rounded-2xl border border-gray-100/90 bg-white px-7 py-4 text-center shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all hover:scale-105 sm:min-w-[300px]">
+                <span className="text-base font-bold text-[#006d3b] sm:text-lg">
+                  No Artificial Colors
+                </span>
+              </div>
+            </div>
+            <div className="text-center md:text-left">
+              <p className="mx-auto max-w-xs text-xs font-medium leading-relaxed text-gray-500 sm:text-sm md:mx-0">
+                Naturally Appealing Snacks Made Without Any Added Artificial Colors.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

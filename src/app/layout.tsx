@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Montserrat, Cormorant_Garamond } from "next/font/google";
+import { Cinzel_Decorative, Montserrat, Cormorant_Garamond } from "next/font/google";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
 import PreLoader from "@/app/components/preLoader";
 import MobileBottomNav from "@/app/components/mobileBottomNav";
+import SmoothScroll from "@/app/components/smoothScroll";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -20,6 +21,13 @@ const cormorantGaramond = Cormorant_Garamond({
   display: "swap",
 });
 
+const cinzelDecorative = Cinzel_Decorative({
+  variable: "--font-cinzel-decorative",
+  subsets: ["latin"],
+  weight: "900",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Appai Foods - Authentic Kerala Snacks",
   description: "100% Authentic & Fresh Traditional Kerala Snacks",
@@ -33,9 +41,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${cormorantGaramond.variable} antialiased`}
+      className={`${montserrat.variable} ${cormorantGaramond.variable} ${cinzelDecorative.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col justify-between font-content">
+        <SmoothScroll />
         <PreLoader />
         <Header />
         <div className="flex-1">
@@ -47,4 +56,3 @@ export default function RootLayout({
     </html>
   );
 }
-
