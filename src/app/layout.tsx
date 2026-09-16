@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel_Decorative, Montserrat, Cormorant_Garamond } from "next/font/google";
+import { Montserrat, Cormorant_Garamond, Fredoka } from "next/font/google";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
 import PreLoader from "@/app/components/preLoader";
@@ -21,10 +21,10 @@ const cormorantGaramond = Cormorant_Garamond({
   display: "swap",
 });
 
-const cinzelDecorative = Cinzel_Decorative({
-  variable: "--font-cinzel-decorative",
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
-  weight: "900",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${cormorantGaramond.variable} ${cinzelDecorative.variable} antialiased`}
+      className={`${montserrat.variable} ${cormorantGaramond.variable} ${fredoka.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col justify-between font-content">
         <SmoothScroll />

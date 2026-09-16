@@ -262,21 +262,14 @@ export default function Hero() {
         });
       });
 
-      // 2. Chapter 1: Coming Onto Screen (0.8s) - Butter-smooth GPU zoom
+      // 2. Chapter 1: Reveal the hero packet at its final size.
+      // Keeping the same scale through the split prevents a zoom-then-shrink bounce.
       tl.to(packetsRef.current[0], {
-        scale: isMobile ? 1.3 : 1.55,
-        rotation: -8,
+        scale: isMobile ? PACKET_LIST[0].mScale : PACKET_LIST[0].scale,
+        rotation: isMobile ? PACKET_LIST[0].mRotate : PACKET_LIST[0].rotate,
         opacity: 1,
         duration: 0.8,
         ease: "power2.out",
-      });
-
-      // Poised hold & breath (0.35s)
-      tl.to(packetsRef.current[0], {
-        scale: isMobile ? 1.34 : 1.6,
-        rotation: -5,
-        duration: 0.35,
-        ease: "sine.inOut",
       });
 
       // 3. Chapter 2: The Splash Burst (1.1s)
@@ -298,7 +291,7 @@ export default function Hero() {
             duration: 1.1,
             ease: "power3.out",
           },
-          1.15 + (index % 3) * 0.02
+          0.8 + (index % 3) * 0.02
         );
       });
 

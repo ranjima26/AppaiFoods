@@ -402,8 +402,8 @@ textarea {
 }
 
 .preloader-brand-letter {
-  font-family: var(--font-cinzel-decorative), "Cinzel Decorative", serif !important;
-  font-weight: 900;
+  font-family: var(--font-fredoka), "Fredoka", sans-serif !important;
+  font-weight: 700;
 }
 
 .preloader-logo-fade-in {

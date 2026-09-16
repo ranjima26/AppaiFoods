@@ -88,8 +88,8 @@ function PreLoaderContent() {
       <div className="w-full max-w-xl px-6">
         <div className="w-full">
           <div className="relative mx-2 h-44 sm:mx-4 sm:h-56">
-            <div aria-label="Appai" className="absolute inset-x-0 top-0 flex items-start justify-between px-1">
-              {[..."APPAI"].map((letter, index) => {
+            <div aria-label="Appai" className="absolute inset-x-0 top-0 flex items-start justify-center">
+              {[..."Appai"].map((letter, index) => {
                 const letterPosition = 8 + index * 18;
                 const revealed = progress >= letterPosition + 6;
                 return (
